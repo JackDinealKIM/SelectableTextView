@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_progressbar">#4fe0bc</color>
+
+    <color name="textColorHighlight">#9bdfd3</color>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SelectableTextView</string>
+    <string name="save_conversation">대사담기</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <net.jaedong.textview.SelectableView
+        android:layout_width="wrap_content"
+        android:id="@+id/selectableView"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/emptyBoxBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/selector_emptybox"
+        android:gravity="center"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/defaultText"
+        android:textSize="15dp"
+        android:visibility="visible" />
+</FrameLayout>
