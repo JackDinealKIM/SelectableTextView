@@ -31,10 +31,6 @@ public class CustomInfo {
         set(text, span, start, end);
     }
 
-    /**
-     * select the {@link #getSpannable()} between the offsets {@link this.getStart()} and
-     * {@link #getEnd()}
-     */
     public void select() {
         select(mSpannable);
     }
@@ -47,9 +43,6 @@ public class CustomInfo {
         }
     }
 
-    /**
-     * remove the the selection
-     */
     public void remove() {
         remove(mSpannable);
     }
@@ -101,41 +94,19 @@ public class CustomInfo {
         mSpan = span;
     }
 
-    /**
-     * get the starting offset of the selection. Note the the starting offset is
-     * not necessarily smaller than the ending offset
-     *
-     * @return the starting offset of the selection
-     */
     public int getStart() {
         return mStart;
     }
 
-    /**
-     * set the starting offset of the selection (inclusive)
-     *
-     * @param start the starting offset. It can be larger than {@link #getEnd()}
-     */
     public void setStart(int start) {
         assert (start >= 0);
         mStart = start;
     }
 
-    /**
-     * get the ending offset of the selection. Note the the ending offset is
-     * not necessarily larger than the starting offset
-     *
-     * @return the ending offset of the selection
-     */
     public int getEnd() {
         return mEnd;
     }
 
-    /**
-     * set the ending offset of the selection (exclusive)
-     *
-     * @param end the ending offset. It can be smaller than {@link #getStart()}
-     */
     public void setEnd(int end) {
         assert (end >= 0);
         mEnd = end;
@@ -149,12 +120,6 @@ public class CustomInfo {
         mSpannable = spannable;
     }
 
-    /**
-     * Checks the weather the specified offset is within the range of the selection
-     *
-     * @param offset the offset to check
-     * @return true if the offset is within the range of the selection, false otherwise.
-     */
     public boolean offsetInSelection(int offset) {
         return (offset >= mStart && offset <= mEnd) || (offset >= mEnd && offset <= mStart);
     }

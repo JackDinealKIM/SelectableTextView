@@ -92,15 +92,6 @@ public class CustomTextView extends AppCompatTextView {
         mDefaultSelectionColor = color;
     }
 
-    /**
-     * set the selection beginning at {@code start} with the specified {@code length} for the given
-     * {@code duration}
-     *
-     * @param color    the color of the selection
-     * @param start    the start offset
-     * @param length   the length of the selection
-     * @param duration the duration the selection, in second, to be last, -1 to indicate forever
-     */
     public void setSelection(int color, int start, int length, int duration) {
 
         int end = start + length >= getText().length() ? getText().length() : start + length;
@@ -113,24 +104,10 @@ public class CustomTextView extends AppCompatTextView {
         removeSelection(duration);
     }
 
-    /**
-     * set the selection beginning at {@code start} with the specified {@code length} for the given
-     * {@code duration} with the default color
-     *
-     * @param start    the start offset
-     * @param length   the length of the selection
-     * @param duration the duration of the selection to be last, -1 to indicate forever
-     */
     public void setSelection(int start, int length, int duration) {
         setSelection(mDefaultSelectionColor, start, length, duration);
     }
 
-    /**
-     * set the selection beginning at {@code start} with the spcified {@code length}
-     *
-     * @param start  the starting offset
-     * @param length the length of the selection
-     */
     public void setSelection(int start, int length) {
         setSelection(start, length, -1);
     }
@@ -146,12 +123,6 @@ public class CustomTextView extends AppCompatTextView {
         removeSelection(mCursorSelection, delay);
     }
 
-    /**
-     * remove the given span style from the main text after the specified time
-     *
-     * @param selection the span style to be removed
-     * @param delay     the milliseconds to wait before remove the style
-     */
     public void removeSelection(final CustomInfo selection, int delay) {
         if (delay >= 0) {
             Runnable runnable = new Runnable() {
@@ -164,12 +135,6 @@ public class CustomTextView extends AppCompatTextView {
         }
     }
 
-    /**
-     * show the selection cursors and select the text between the specified offset
-     *
-     * @param start the start offset
-     * @param end   the end offset
-     */
     public void showSelectionControls(int start, int end) {
         if (start < 0) {
             start = 0;
@@ -186,26 +151,15 @@ public class CustomTextView extends AppCompatTextView {
         mSelectionController.show(start, end);
     }
 
-    /**
-     * @return the current selection information
-     */
     public CustomInfo getCursorSelection() {
         return mCursorSelection;
     }
 
-    /**
-     * set the OnCursorHiddenListner when then the cursors hide
-     *
-     * @param onCursorStateChangedListener the OnCursorVisibilityChangedListener
-     */
     public void setOnCursorStateChangedListener(
             OnCursorStateChangedListener onCursorStateChangedListener) {
         mOnCursorStateChangedListener = onCursorStateChangedListener;
     }
 
-    /**
-     * @return the y position
-     */
     private int getScrollYInternal() {
         int y = this.getScrollY();
         if (this.getParent() instanceof ScrollView) {
@@ -218,12 +172,6 @@ public class CustomTextView extends AppCompatTextView {
         return y;
     }
 
-    /**
-     * the current x position of the TextView taking into account the scroll (if it's inside a
-     * ScrollView) and the padding of the scrollview
-     *
-     * @return the x position
-     */
     private int getScrollXInternal() {
         int x = this.getScrollX();
 
@@ -242,15 +190,6 @@ public class CustomTextView extends AppCompatTextView {
         return x;
     }
 
-    /**
-     * Gets the character offset of (x, y). If (x, y) lies on the right half of the character, it
-     * returns the offset of the next character. If (x, y) lies on the left half of the character, it
-     * returns the offset of this character.
-     *
-     * @param x x coordinate relative to this TextView
-     * @param y y coordinate relative to this TextView
-     * @return the offset at (x,y), -1 if error occurs
-     */
     public int getOffset(int x, int y) {
         Layout layout = getLayout();
         int offset = -1;
@@ -263,14 +202,6 @@ public class CustomTextView extends AppCompatTextView {
         return offset;
     }
 
-    /**
-     * Gets the character offset where (x, y) is pointing to.
-     *
-     * @param x x coordinate relative to this TextView
-     * @param y y coordinate relative to this TextView
-     * @return the offset at (x, y), -1 if error occurs
-     * @see {@link #getOffset(int, int)}
-     */
     public int getPreciseOffset(int x, int y) {
         Layout layout = getLayout();
 
@@ -286,15 +217,6 @@ public class CustomTextView extends AppCompatTextView {
         return getOffset(x, y);
     }
 
-    /**
-     * Get the offset character closest to the specified absolute position. If the resulting offset is
-     * too close to the previous offset, return the previous offset instead.
-     *
-     * @param x              raw x
-     * @param y              raw y
-     * @param previousOffset previous offset
-     * @return offset of the specified (x,y)
-     */
     private int getHysteresisOffset(int x, int y, int previousOffset) {
         final Layout layout = getLayout();
         if (layout == null) return -1;
@@ -389,14 +311,6 @@ public class CustomTextView extends AppCompatTextView {
         return offset;
     }
 
-    /**
-     * Checks whether the specified offset is at the end of a line.
-     * <p/>
-     * PRECONDITION: assumes layout exists and is valid
-     *
-     * @param offset the offset to check
-     * @return true if the offset is at the end of a line, false otherwise.
-     */
     private boolean isEndOfLineOffset(int offset) {
         if (offset > 0) {
             return getLayout().getLineForOffset(offset) == getLayout().getLineForOffset(offset - 1) + 1;
@@ -404,17 +318,6 @@ public class CustomTextView extends AppCompatTextView {
         return false;
     }
 
-    ////////////////////////////////////////////////
-    // copied & modified from Android source code //
-    ////////////////////////////////////////////////
-
-    /**
-     * get the offset given the line and the raw x
-     *
-     * @param line the line
-     * @param x    raw x
-     * @return the offset
-     */
     private int getOffsetForHorizontal(int line, int x) {
         x -= getTotalPaddingLeft();
         // Clamp the position to inside of the view.
@@ -425,14 +328,6 @@ public class CustomTextView extends AppCompatTextView {
         return getLayout().getOffsetForHorizontal(line, x);
     }
 
-    /**
-     * get the (x,y) screen coordinates from the specified offset.
-     *
-     * @param offset   the offset
-     * @param scroll_x the horizontal scroll distance to take away
-     * @param scroll_y the horizontal scroll distance to take away
-     * @param coords   the returned x, y coordinate array, must have a length of 2
-     */
     private void getXY(int offset, int scroll_x, int scroll_y, int[] coords) {
         assert (coords.length >= 2);
 
@@ -448,16 +343,6 @@ public class CustomTextView extends AppCompatTextView {
         }
     }
 
-    /**
-     * Get the (x,y) screen coordinate from the specified offset. If the specified offset is beyond
-     * the
-     * end of the line, move the offset to the beginning of the next line.
-     *
-     * @param offset   the offset
-     * @param scroll_x the horizontal scroll distance to take away
-     * @param scroll_y the horizontal scroll distance to take away
-     * @param coords   the returned x, y coordinate array, muust have a length of 2
-     */
     private void getAdjusteStartXY(int offset, int scroll_x, int scroll_y, int[] coords) {
         if (offset < getText().length()) {
             final Layout layout = getLayout();
@@ -475,18 +360,6 @@ public class CustomTextView extends AppCompatTextView {
         getXY(offset, scroll_x, scroll_y, coords);
     }
 
-    /**
-     * Get the (x,y) screen coordinate from the specified offset. If the offset is the at the end of
-     * a
-     * wrapped line, return the (x,y) at the end of that line instead of the (x, y) at the beginning
-     * of
-     * the next line (which is the default behaviour for Android)
-     *
-     * @param offset   the offset
-     * @param scroll_x the horizontal scroll distance to take away
-     * @param scroll_y the horizontal scroll distance to take away
-     * @param coords   the returned x, y coordinate array, must have a length of 2
-     */
     private void getAdjustedEndXY(int offset, int scroll_x, int scroll_y, int[] coords) {
         if (offset > 0) {
             final Layout layout = getLayout();
@@ -508,31 +381,11 @@ public class CustomTextView extends AppCompatTextView {
         mSelectionController.hide();
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////INNER CLASSES//////////////////////////////////
-    ///////// copied, heavily modified and simplified from TextView ////////////
-    ////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * Manages the two cursors that control the selection. Internal used only. For outsider, please
-     * use
-     * SelectionModifier
-     */
     private class SelectionCursorController implements ViewTreeObserver.OnTouchModeChangeListener {
 
-        /**
-         * The two cursor handle that controls the selection. Note that the two cursors are allowed to
-         * swap positions and thus the name of the handle has no bearing on the relative position of the
-         * handle to each other. (e.g. mStartHandle can be positioned leagally at an offset greater than
-         * the offset mEndHandle is resting on)
-         */
         private CursorHandle mStartHandle;
         private CursorHandle mEndHandle;
 
-        /**
-         * whether the selection controller is displaying on the screen
-         */
         private boolean mIsShowing;
 
         public SelectionCursorController() {
@@ -540,9 +393,6 @@ public class CustomTextView extends AppCompatTextView {
             mEndHandle = new CursorHandle(this);
         }
 
-        /**
-         * snap the cursors to the current selection
-         */
         public void snapToSelection() {
 
             if (mIsShowing) {
@@ -570,13 +420,6 @@ public class CustomTextView extends AppCompatTextView {
             }
         }
 
-        /**
-         * show the selection cursor at the specified offsets and select the text between the specified
-         * offsets.
-         *
-         * @param start the offset of the first cursor
-         * @param end   the offset of the second cursor
-         */
         public void show(int start, int end) {
 
             int a = Math.min(start, end);
@@ -600,9 +443,6 @@ public class CustomTextView extends AppCompatTextView {
             select(a, b);
         }
 
-        /**
-         * hide the cursor and selection
-         */
         public void hide() {
             if (mIsShowing) {
                 CustomTextView.this.removeSelection();
@@ -616,15 +456,6 @@ public class CustomTextView extends AppCompatTextView {
             }
         }
 
-        /**
-         * redraw the moving cursor and update the selection if required
-         *
-         * @param cursorHandle the CursorHandle (LEFT or RIGHT)
-         * @param x            the x coordinate the cursor is pointing to on the screen (raw)
-         * @param y            the y coordinate the cursor is pointing to on the screen (raw)
-         * @param oldx         the previous x position the cursor pointed to
-         * @param oldy         the previous y position the cursor pointed to
-         */
         public void updatePosition(CursorHandle cursorHandle, int x, int y, int oldx, int oldy) {
             if (!mIsShowing) {
                 return;
@@ -652,14 +483,6 @@ public class CustomTextView extends AppCompatTextView {
             }
         }
 
-        /**
-         * Select the textview between start and end.
-         * <p/>
-         * Precondition: start, end must be valid
-         *
-         * @param start the starting offset
-         * @param end   the ending offset
-         */
         private void select(int start, int end) {
             CustomTextView.this.setSelection(Math.min(start, end), Math.abs(end - start));
         }
@@ -669,11 +492,6 @@ public class CustomTextView extends AppCompatTextView {
             return mIsShowing;
         }
 
-        /**
-         * Called when the view is detached from window. Perform house keeping task, such as stopping
-         * Runnable thread that would otherwise keep a reference on the context, thus preventing the
-         * activity from being recycled.
-         */
         @SuppressWarnings("unused")
         public void onDetached() {
             // don't know what to do here
@@ -692,9 +510,6 @@ public class CustomTextView extends AppCompatTextView {
      */
     private class CursorHandle extends View {
 
-        /**
-         * the {@link PopupWindow} containing the cursor drawable
-         */
         private final PopupWindow mContainer;
 
         /**
@@ -843,12 +658,6 @@ public class CustomTextView extends AppCompatTextView {
             return mContainer.isShowing();
         }
 
-        /**
-         * Show the cursor pointing to the specified point.
-         *
-         * @param x the x coordinate of the point relative to the TextView
-         * @param y the y coordinate of the point relative to the TextView
-         */
         public void show(int x, int y) {
             final int[] coords = mTempCoords;
             CustomTextView.this.getLocationInWindow(coords);
@@ -858,12 +667,6 @@ public class CustomTextView extends AppCompatTextView {
             mContainer.showAtLocation(CustomTextView.this, Gravity.NO_GRAVITY, coords[0], coords[1]);
         }
 
-        /**
-         * move the cursor to point the (x,y) location on the screen.
-         *
-         * @param x the x coordinate on the screen
-         * @param y the y coordinate on the screen
-         */
         private void pointTo(int x, int y) {
             if (isShowing()) {
                 mContainer.update(x - mHotspotX, y - mHotspotY, -1, -1);

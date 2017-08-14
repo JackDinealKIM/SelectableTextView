@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 26
@@ -28,4 +29,13 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     testCompile 'junit:junit:4.12'
+}
+
+publish {
+    userOrg = 'mashiaro'
+    groupId = 'com.jaedongchicken'
+    artifactId = 'selectabletextview'
+    publishVersion = '1.0.0'
+    desc = 'Helper library for Android developers looking to add custom SelectableTextView.'
+    website = 'https://github.com/JackDinealKIM/SelectableTextView.git'
 }
