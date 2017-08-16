@@ -17,7 +17,7 @@ use Gradle:
 }
 
 dependencies {
-  compile 'com.jaedongchicken:selectabletextview:1.0.0'
+  compile 'net.jaedong:selectabletextview:1.0.0'
 }
 ```
 
@@ -25,7 +25,7 @@ Or Maven:
 
 ```xml
 <dependency>
-  <groupId>com.jaedongchicken</groupId>
+  <groupId>net.jaedong</groupId>
   <artifactId>selectabletextview</artifactId>
   <version>1.0.0</version>
   <type>pom</type>
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 Updated
 ------
 ```
-v 1.0.0 - added setWhiteBackgroundColor() method.
+v 1.0.0 - First Released.
 ```
 
 Author
